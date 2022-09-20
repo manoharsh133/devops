@@ -1,0 +1,180 @@
+
+
+========================================================================
+
+
+Assign:
+
+1. Biggest of 3 no's
+
+#!/bin/bash
+if [ $1 -gt $2 ] & [ $1 -gt $3 ]
+then
+echo "$1 is big"
+elif [ $2 -gt $3 ]
+then
+echo "$2 is big"
+else
+echo "$3 is big"
+fi
+
+
+2. write a script to add, substract, multiply and devide of two no's
+
+#!/bin/bash
+b=$(( $1 + $2 ))
+d=$(( $1 * $2 ))
+if [ $1 -gt $2 ]
+then 
+a=$(( $1 - $2 ))
+c=$(( $1 / $2 ))
+else
+a=$(( $2 - $1 ))
+c=$(( $2 / $1 ))
+fi
+echo "subtraction of two numbers : $a"
+echo "addition of two numbers : $b"
+echo "divsion of two numbers : $c"
+echo "multiplication of two numbers is : $d"
+
+3. write a script to check given name is a file or directory, if its a file then display the content of file and if its a directory the list all the file in that directory.
+
+#!/bin/bash
+echo " enter the name "
+read name
+if [ -f $name ]
+then
+        cat $name
+elif [ -d $name ]
+then
+        ls $name
+else
+        echo " $name not found "
+fi
+
+
+4. write s script to find factorial of a given number.
+
+#!/bin/bash
+set -x
+echo "Enter a number"
+read num
+
+fact=1
+
+while [ $num -gt 1 ]
+do
+  fact=$[(fact * num)] 
+  num=$[(num - 1)]      
+done
+
+echo $fact
+
+5. write a script to add a given set of numbers: numbers="2 4 6 8 10"
+
+#!/bin/bash
+set -x
+var=0
+for i in "$@"
+do
+        var=$((var+i))
+done
+
+echo "Sum : $var"
+
+
+
+#!/bin/bash
+set -x
+num=(2 4 6 8 20 30)
+add=0
+for i in "${num[@]}"
+do
+add=$((i+add))
+done
+echo "Sum of $num is $add"
+
+
+
+=====================================================================================
+
+
+employ
+
+Name		Emp-ID		age
+ABCD		1234		35
+EFGH		2345		45
+HIJK		3456		55
+LMOP		4567		40
+
+
+#!/bin/bash
+sed '1d' $1 > temp
+while read line
+do
+age=`echo "$line"|awk -F " " '{print $3}'`
+if [ $age -gt $2 ]
+then
+echo "$line"|awk -F " " '{print $1}'
+fi
+done < temp
+
+
+
+=====================================================================================
+
+builds : no space left on device
+
+df -h
+
+
+#!/bin/bash
+space=`df -h .|tail -1|awk -F " " '{print $5}'|sed 's/%//g'`
+if [ $space -ge 90 ]
+then
+echo "Disk memory is more than 90% \nPlease take appropriate action"|mail -s "Sub" -c "devops.com" abc@gmail.com
+fi
+
+
+
+=====================================================================================
+
+cleanup script: retain recent 20 builds 
+
+
+#!/bin/bash
+total=`ls|wc -l`
+delete_num=`expr $total-10`
+if [ $delete_num -gt 0 ]
+then
+ls -rt|head -$delete_num|xargs rm -rf
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
